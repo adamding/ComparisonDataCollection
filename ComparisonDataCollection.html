@@ -1,0 +1,474 @@
+
+<html>
+    <head>
+    </head>
+
+    <body>
+        <button onclick="cleartable()">Clear</button>
+        <br />  
+        Step 1: Choose test type
+        <br />
+        Test type: 
+        <button onclick="button_mode1()">one sample</button>
+        <button onclick="button_mode2()">paired two sample</button>
+        <button onclick="button_mode3()">ANOVA with blocking(4 sample)</button>
+        <br/>
+        <div>
+        Current type:    <p id="current_type">
+        </div>
+        <br />
+        <br />
+        Step 2: Choose data type(s) (current choice is shown at the first row of the table below)
+
+        <br/>
+        Button size:  
+        <button onclick="givesize(60);givename(mode,1);cleartable();hint()">Small</button>
+        <button onclick="givesize(90);givename(mode,2);cleartable();hint()">Medium</button>
+        <button onclick="givesize(150);givename(mode,3);cleartable();hint()">Large</button>
+        <button onclick="givesize(300);givename(mode,4);cleartable();hint()">Extra large</button>
+        <br />
+        <div>
+             <p id="hint"> 
+        </div>
+
+        
+
+        <div id="yourDivId">
+            <button  style="height:60px;width:60px" id="redbutton" onclick="gettime2();getElementById(number).innerHTML=diff;addcount()">click me</button>
+        </div>
+        
+        
+        <br />
+        <br />
+        Step 3: <br />
+        Press start and click the red button that pops up. (repeat to collect more data, the table can store up to 10 trials)
+        <br />
+        <button id="start" onclick="gettime1()">Start</button>
+        <br />
+        <br />
+        Step 4: <br />
+        Select the whole table and copy past it to a txt file. After read it into R, delete the addtional columns.<br />
+        If you want more than 10 trials, after copying the first 10 trials, click the 'Clear' button to clear the table and repeat step 3
+        <table border="1">
+            <tr>   
+                <td><p id="name1"></td>
+                <td><p id="name2"></td> 
+                <td><p id="name3"></td>  
+                <td><p id="name4"></td>
+            </tr>
+
+            <tr>  
+                <td><p id="1">0</p></td>
+                <td><p id="2">0</p></td>
+                <td><p id="3">0</p></td>
+                <td><p id="4">0</p></td>
+            </tr>
+
+            <tr>    
+                <td><p id="5">0</p></td>
+                <td><p id="6">0</p></td>
+                <td><p id="7">0</p></td>
+                <td><p id="8">0</p></td>
+            </tr>
+
+            <tr>
+                <td><p id="9">0</p></td>
+                <td><p id="10">0</p></td>
+                <td><p id="11">0</p></td>
+                <td><p id="12">0</p></td>       
+            </tr>
+
+            <tr>
+                <td><p id="13">0</p></td>
+                <td><p id="14">0</p></td>
+                <td><p id="15">0</p></td>
+                <td><p id="16">0</p></td>
+            </tr>
+
+            <tr>
+                <td><p id="17">0</p></td>
+                <td><p id="18">0</p></td>
+                <td><p id="19">0</p></td>
+                <td><p id="20">0</p></td>
+            </tr>
+            <tr>
+                <td><p id="21">0</p></td>
+                <td><p id="22">0</p></td>
+                <td><p id="23">0</p></td>
+                <td><p id="24">0</p></td>
+            </tr>
+
+            <tr>
+                <td><p id="25">0</p></td>
+                <td><p id="26">0</p></td>
+                <td><p id="27">0</p></td>
+                <td><p id="28">0</p></td>
+            </tr>
+
+            <tr>
+                <td><p id="29">0</p></td>
+                <td><p id="30">0</p></td>
+                <td><p id="31">0</p></td>
+                <td><p id="32">0</p></td>
+            </tr>
+
+            <tr>
+                <td><p id="33">0</p></td>
+                <td><p id="34">0</p></td>
+                <td><p id="35">0</p></td>
+                <td><p id="36">0</p></td>
+            </tr>
+
+            <tr>
+                <td><p id="37">0</p></td>
+                <td><p id="38">0</p></td>
+                <td><p id="39">0</p></td>
+                <td><p id="40">0</p></td>
+            </tr>
+        </table>
+
+        <script type="application/javascript">
+                var mode=0;
+                var x= new Date();
+                var diff= 0;
+                var n=1;
+                var number=n.toString();
+                var d = document.getElementById('yourDivId');
+                var e = document.getElementById('redbutton');
+                var f = document.getElementById('start');
+                var xp=800;
+                var yp=800;
+                var n1=0;
+                var n2=0;
+                var n3=0;
+                var n4=0;
+                e.style.display="none";
+                d.style.position = "absolute";
+                d.style.left = xp+'px';
+                d.style.top = yp+'px';
+                
+
+            
+    
+                    
+                function gettime1(){
+                    f.style.backgroundColor="grey";
+                    xp=500+Math.random()*300;
+                    yp=300+Math.random()*200;
+                    x= new Date();
+                    d.style.position = "absolute";
+                    d.style.left = xp+'px';
+                    d.style.top = yp+'px';
+                    e.style.display="block";
+                    e.style.backgroundColor="red";
+                    if (mode==1){
+                        if(n1==1){givesize(60);}
+                        if(n1==2){givesize(90);}
+                        if(n1==3){givesize(150);}
+                        if(n1==4){givesize(300);}
+                    }
+
+                    if(mode==2){
+                        if(n%4 == 1){
+                            if(n1==1){givesize(60);}
+                            if(n1==2){givesize(90);}
+                            if(n1==3){givesize(150);}
+                            if(n1==4){givesize(300);}
+                        }else{
+                            if(n2==1){givesize(60);}
+                            if(n2==2){givesize(90);}
+                            if(n2==3){givesize(150);}
+                            if(n2==4){givesize(300);}                            
+                        }
+
+                    }
+
+                    if(mode==3){
+                        if(n%4 == 1){
+                            if(n1==1){givesize(60);}
+                            if(n1==2){givesize(90);}
+                            if(n1==3){givesize(150);}
+                            if(n1==4){givesize(300);}
+                        }else if(n%4==2){
+                            if(n2==1){givesize(60);}
+                            if(n2==2){givesize(90);}
+                            if(n2==3){givesize(150);}
+                            if(n2==4){givesize(300);} 
+                        }else if(n%4==3){
+                            if(n3==1){givesize(60);}
+                            if(n3==2){givesize(90);}
+                            if(n3==3){givesize(150);}
+                            if(n3==4){givesize(300);}       
+                        }else{
+                            if(n4==1){givesize(60);}
+                            if(n4==2){givesize(90);}
+                            if(n4==3){givesize(150);}
+                            if(n4==4){givesize(300);}                             
+                        }
+
+                    }
+                }
+    
+                function gettime2(){
+                    f.style.backgroundColor='';
+                    var y= new Date();
+                    diff=(y.getTime()-x.getTime())/1000;
+                    e.style.display="none";
+        
+                }
+    
+                function addcount(){
+                    if(mode==1){
+                        n=n+4;
+                        number=n.toString();
+                    }
+                    if(mode==2){
+                        if(n%4 ==1){
+                            n=n+1;
+                            number=n.toString();
+                        }else{
+                            n=n+3;
+                            number=n.toString();
+                        }
+                    }
+                    if(mode==3){
+                        n=n+1;
+                        number=n.toString();
+                    }
+                }
+                
+                function button_mode1(){
+                    clearalldata(); mode=1; 
+                    givetype(1);
+                    document.getElementById('name1').innerHTML='None';
+                    document.getElementById('name2').innerHTML='None';
+                    document.getElementById('name3').innerHTML='None';
+                    document.getElementById('name4').innerHTML='None';
+                    hint()
+                }
+                
+                function button_mode2(){
+                    clearalldata();
+                    mode=2; 
+                    givetype(2);
+                    document.getElementById('name1').innerHTML='None';
+                    document.getElementById('name2').innerHTML='None';
+                    document.getElementById('name3').innerHTML='None';
+                    document.getElementById('name4').innerHTML='None';
+                    hint()
+                }
+                
+                function button_mode3(){
+                    clearalldata(); 
+                    mode=3; 
+                    givetype(3);
+                    document.getElementById('name1').innerHTML='Small';
+                    document.getElementById('name2').innerHTML='Medium';
+                    document.getElementById('name3').innerHTML='Large';
+                    document.getElementById('name4').innerHTML='Extra large';
+                    hint()
+                    n1=1;
+                    n2=2;
+                    n3=3;
+                    n4=4;
+                }
+
+                function givesize(temp){
+                    e.style.height = temp+'px';
+                    e.style.width = temp+'px';
+                }
+    
+                function clearalldata(){
+                    n1=0;
+                    n2=0;
+                    n3=0;
+                    n4=0;
+                    n=1;
+                    number=n.toString();
+                    diff=0;
+                    document.getElementById('1').innerHTML=diff;
+                    document.getElementById('2').innerHTML=diff;
+                    document.getElementById('3').innerHTML=diff;
+                    document.getElementById('4').innerHTML=diff;
+                    document.getElementById('5').innerHTML=diff;
+                    document.getElementById('6').innerHTML=diff;
+                    document.getElementById('7').innerHTML=diff;
+                    document.getElementById('8').innerHTML=diff;
+                    document.getElementById('9').innerHTML=diff;
+                    document.getElementById('10').innerHTML=diff;
+                    document.getElementById('11').innerHTML=diff;
+                    document.getElementById('12').innerHTML=diff;
+                    document.getElementById('13').innerHTML=diff;
+                    document.getElementById('14').innerHTML=diff;
+                    document.getElementById('15').innerHTML=diff;
+                    document.getElementById('16').innerHTML=diff;
+                    document.getElementById('17').innerHTML=diff;
+                    document.getElementById('18').innerHTML=diff;
+                    document.getElementById('19').innerHTML=diff;
+                    document.getElementById('20').innerHTML=diff;
+                    document.getElementById('21').innerHTML=diff;
+                    document.getElementById('22').innerHTML=diff;
+                    document.getElementById('23').innerHTML=diff;
+                    document.getElementById('24').innerHTML=diff;
+                    document.getElementById('25').innerHTML=diff;
+                    document.getElementById('26').innerHTML=diff;
+                    document.getElementById('27').innerHTML=diff;
+                    document.getElementById('28').innerHTML=diff;
+                    document.getElementById('29').innerHTML=diff;
+                    document.getElementById('30').innerHTML=diff;
+                    document.getElementById('31').innerHTML=diff;
+                    document.getElementById('32').innerHTML=diff;
+                    document.getElementById('33').innerHTML=diff;
+                    document.getElementById('34').innerHTML=diff;
+                    document.getElementById('35').innerHTML=diff;
+                    document.getElementById('36').innerHTML=diff;
+                    document.getElementById('37').innerHTML=diff;
+                    document.getElementById('38').innerHTML=diff;
+                    document.getElementById('39').innerHTML=diff;
+                    document.getElementById('40').innerHTML=diff;
+                }
+                
+                function cleartable(){
+                    n=1;
+                    number=n.toString();
+                    diff=0;
+                    document.getElementById('1').innerHTML=diff;
+                    document.getElementById('2').innerHTML=diff;
+                    document.getElementById('3').innerHTML=diff;
+                    document.getElementById('4').innerHTML=diff;
+                    document.getElementById('5').innerHTML=diff;
+                    document.getElementById('6').innerHTML=diff;
+                    document.getElementById('7').innerHTML=diff;
+                    document.getElementById('8').innerHTML=diff;
+                    document.getElementById('9').innerHTML=diff;
+                    document.getElementById('10').innerHTML=diff;
+                    document.getElementById('11').innerHTML=diff;
+                    document.getElementById('12').innerHTML=diff;
+                    document.getElementById('13').innerHTML=diff;
+                    document.getElementById('14').innerHTML=diff;
+                    document.getElementById('15').innerHTML=diff;
+                    document.getElementById('16').innerHTML=diff;
+                    document.getElementById('17').innerHTML=diff;
+                    document.getElementById('18').innerHTML=diff;
+                    document.getElementById('19').innerHTML=diff;
+                    document.getElementById('20').innerHTML=diff;
+                    document.getElementById('21').innerHTML=diff;
+                    document.getElementById('22').innerHTML=diff;
+                    document.getElementById('23').innerHTML=diff;
+                    document.getElementById('24').innerHTML=diff;
+                    document.getElementById('25').innerHTML=diff;
+                    document.getElementById('26').innerHTML=diff;
+                    document.getElementById('27').innerHTML=diff;
+                    document.getElementById('28').innerHTML=diff;
+                    document.getElementById('29').innerHTML=diff;
+                    document.getElementById('30').innerHTML=diff;
+                    document.getElementById('31').innerHTML=diff;
+                    document.getElementById('32').innerHTML=diff;
+                    document.getElementById('33').innerHTML=diff;
+                    document.getElementById('34').innerHTML=diff;
+                    document.getElementById('35').innerHTML=diff;
+                    document.getElementById('36').innerHTML=diff;
+                    document.getElementById('37').innerHTML=diff;
+                    document.getElementById('38').innerHTML=diff;
+                    document.getElementById('39').innerHTML=diff;
+                    document.getElementById('40').innerHTML=diff;
+                }
+
+                function givename(mode,k){
+                    if(mode==1){
+                        if(k==1){
+                            document.getElementById('name1').innerHTML='Small';
+                            n1=k;
+                        }
+                        if(k==2){
+                            document.getElementById('name1').innerHTML='Medium';
+                            n1=k;
+                        }
+                        if(k==3){
+                            document.getElementById('name1').innerHTML='Large';
+                            n1=k;
+                        }
+                        if(k==4){
+                            document.getElementById('name1').innerHTML='Extra large';
+                            n1=k;
+                        }
+                    }
+
+                    if(mode==2){
+                    
+                        if(k==1){
+                            document.getElementById('name2').innerHTML=document.getElementById('name1').innerHTML;
+                            document.getElementById('name1').innerHTML='Small';
+                            n2=n1;
+                            n1=k;
+                        }
+                        if(k==2){
+                            document.getElementById('name2').innerHTML=document.getElementById('name1').innerHTML;
+                            document.getElementById('name1').innerHTML='Medium';
+                            n2=n1;
+                            n1=k;
+                        }
+                        if(k==3){
+                            document.getElementById('name2').innerHTML=document.getElementById('name1').innerHTML;
+                            document.getElementById('name1').innerHTML='Large';
+                            n2=n1;
+                            n1=k;
+                        }
+                        if(k==4){
+                            document.getElementById('name2').innerHTML=document.getElementById('name1').innerHTML;
+                            document.getElementById('name1').innerHTML='Extra large';
+                            n2=n1;
+                            n1=k;
+                        }
+                    }
+
+                    if(mode==3){
+                        n1=1;
+                        n2=2;
+                        n3=3;
+                        n4=4;
+                    }
+
+                }
+                
+                function hint(){
+                    if(mode==1){
+                        if(n1==0){
+                            document.getElementById('hint').innerHTML='Tip: need to choose '+'1'+' more type.';
+                        }else{
+                            document.getElementById('hint').innerHTML='';
+                        }
+                    }
+                    if(mode==2){
+                        if(n1==0){
+                            document.getElementById('hint').innerHTML='Tip: need to choose '+'2'+' more types.';
+                        }else if(n2==0){
+                            document.getElementById('hint').innerHTML='Tip: need to choose '+'1'+' more type.';
+                        }else {
+                            document.getElementById('hint').innerHTML='';
+                        }
+                    }
+                    if(mode==3){document.getElementById('hint').innerHTML='Tip: Skip to step 3';}
+                    if(n1!=0 &n1==n2){
+                        document.getElementById('hint').innerHTML='Error: You have chosen same data type, please selection a different type';
+                    }
+                }
+
+                function  givetype(k){
+                    if(k==1){
+                        document.getElementById('current_type').innerHTML='one sample';
+                    }
+                    if(k==2){
+                        document.getElementById('current_type').innerHTML='paired two sample';
+                    }
+                    if(k==3){
+                        document.getElementById('current_type').innerHTML='ANOVA with blocking(4 sample)';
+                    }
+
+                }
+        </script>
+        
+        
+    </body>
+
+</html>
